@@ -219,8 +219,11 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  if (Number.isNaN(Number.parseInt(value, 10)) || value === null) {
+    return def;
+  }
+  return Number.parseInt(value, 10);
 }
 
 /**
@@ -615,7 +618,14 @@ function getHypotenuse(a, b) {
  * 15 => 8
  */
 function getCountOfOddNumbers(number) {
-  return (number % 2) + getCountOfOddNumbers(number);
+  let count = 0;
+  const roundNumber = Math.abs(number);
+  for (let index = 0; index < roundNumber; index += 1) {
+    if (index % 2 === 0) {
+      count += 1;
+    }
+  }
+  return count;
 }
 
 module.exports = {
